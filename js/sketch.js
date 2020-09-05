@@ -41,9 +41,28 @@ objload.load('asset/1-VER3.gltf', function(model1s){
 
 
 
+let ear = new THREE.AudioListener();
 
 init();
 update();
+
+//sound
+
+let sound1 = new THREE.PositionalAudio(ear);
+let loader1 = new THREE.AudioLoader();
+loader1.load("sound/Number 1 Alison (Edge, Traking) clear.wav", function(buffer){
+    sound1.setBuffer(buffer);
+    sound1.setRefDistance(10);
+    sound1.play();
+});
+mesh.add(sound1);
+
+//audio context
+let AudioContext = new AudioContext();
+document.body.addEventListener('click',function(){
+    AudioContext.resume();
+});
+
 
 function init(){
     scene= new THREE.Scene();
@@ -90,6 +109,9 @@ function init(){
     controls.target.set(0,10,0);
     controls.update();
     
+    //add audio listener to camera
+    camera.add(ear);
+
     //mesh is loaded in the animation loop
 
     window.addEventListener('resize',resize,false); 
