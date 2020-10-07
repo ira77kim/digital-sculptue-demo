@@ -54,7 +54,10 @@ loader1.load("sound/0.wav", function(buffer){
     sound1.setBuffer(buffer);
     sound1.setRefDistance(10);
     sound1.loop = true;
-    sound1.play();
+    // sound1.play();
+    document.addEventListener("click",function(){
+        sound1.play();
+    });
     if(camera.position.z<60){
         sound1.play();
     }
