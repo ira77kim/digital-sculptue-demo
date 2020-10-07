@@ -58,9 +58,9 @@ loader1.load("sound/0.wav", function(buffer){
     document.addEventListener("click",function(){
         sound1.play();
     });
-    if(camera.position.z<60){
-        sound1.play();
-    }
+    // if(camera.position.z<60){
+    //     sound1.play();
+    // }
     // sound1.loop = true;
 });
 mesh.add(sound1);
