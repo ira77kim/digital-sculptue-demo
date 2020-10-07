@@ -12,7 +12,7 @@ let mesh = new THREE.Mesh(ball,ballm);
 let loader = new THREE.GLTFLoader();
 
 loader.load('asset/32C.gltf', function(model32C){
-    // loader.position.x=0;
+    
     model32C.scene.rotation.y=Math.PI/2;
     model32C.scene.position.set(0,0,20);
     scene.add(model32C.scene);
@@ -22,9 +22,9 @@ loader.load('asset/32C.gltf', function(model32C){
 let objload = new THREE.GLTFLoader();
 objload.load('asset/1-VER3.gltf', function(model1s){
     scene.add(model1s.scene);
-    model1s.scene.position.set(100,-200,500);
-    console.log(model1s.scene.position);
-    console.log("load");
+    model1s.scene.position.set(80,-200,500);
+    // console.log(model1s.scene.position);
+    // console.log("load");
 });
 
 
@@ -50,18 +50,36 @@ update();
 
 let sound1 = new THREE.PositionalAudio(ear);
 let loader1 = new THREE.AudioLoader();
-loader1.load("sound/Number 1 Alison (Edge, Traking) clear.wav", function(buffer){
+loader1.load("sound/0.wav", function(buffer){
     sound1.setBuffer(buffer);
     sound1.setRefDistance(10);
-    sound1.play();
+    // sound1.play();
+    sound1.loop = true;
 });
 mesh.add(sound1);
 
+let sound={};
+let Audioloader={};
+let filename={};
+let stringed={};
+for(i=0;i<2;i++){
+    sound[i]=new THREE.PositionalAudio(ear);
+    Audioloader[i]=new THREE.AudioLoader();
+    filename[i]="sound/"+i+".wav";
+    Audioloader[i].load(filename[i], function(buffer){
+        sound[i].setBuffer(buffer);
+        sound[i].setRefDistance(10);
+        sound[i].play();
+        console.log(filename[i]);
+    }); 
+}
+
+
 //audio context
-let AudioContext = new AudioContext();
-document.body.addEventListener('click',function(){
-    AudioContext.resume();
-});
+// let audioContext = new AudioContext();
+// document.body.addEventListener('click',function(){
+//     audioContext.resume();
+// });
 
 
 function init(){
