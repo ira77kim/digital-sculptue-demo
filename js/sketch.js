@@ -53,8 +53,12 @@ let loader1 = new THREE.AudioLoader();
 loader1.load("sound/0.wav", function(buffer){
     sound1.setBuffer(buffer);
     sound1.setRefDistance(10);
-    // sound1.play();
     sound1.loop = true;
+    sound1.play();
+    if(camera.position.z<60){
+        sound1.play();
+    }
+    // sound1.loop = true;
 });
 mesh.add(sound1);
 
@@ -62,17 +66,17 @@ let sound={};
 let Audioloader={};
 let filename={};
 let stringed={};
-for(i=0;i<2;i++){
-    sound[i]=new THREE.PositionalAudio(ear);
-    Audioloader[i]=new THREE.AudioLoader();
-    filename[i]="sound/"+i+".wav";
-    Audioloader[i].load(filename[i], function(buffer){
-        sound[i].setBuffer(buffer);
-        sound[i].setRefDistance(10);
-        sound[i].play();
-        console.log(filename[i]);
-    }); 
-}
+// for(i=0;i<2;i++){
+//     sound[i]=new THREE.PositionalAudio(ear);
+//     Audioloader[i]=new THREE.AudioLoader();
+//     filename[i]="sound/"+i+".wav";
+//     Audioloader[i].load(filename[i], function(buffer){
+//         filename[i].setBuffer(buffer);
+//         filename[i].setRefDistance(10);
+//         filename[i].play();
+//         console.log(filename[i]);
+//     }); 
+// }
 
 
 //audio context
