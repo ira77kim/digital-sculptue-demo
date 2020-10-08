@@ -5,24 +5,28 @@ let controls;
 
 let light1,light2;
 let ball = new THREE.SphereGeometry(1,16,16);
-let ballm= new THREE.MeshPhongMaterial({color:0x000000});
+let ballm= new THREE.MeshPhongMaterial({
+    color:0x000000,
+    transparent:true,
+    opacity:1
+});
 let mesh = new THREE.Mesh(ball,ballm);
 
 //loader
 let loader = new THREE.GLTFLoader();
 
-loader.load('asset/32C.gltf', function(model32C){
+// loader.load('asset/32C.gltf', function(model32C){
     
-    model32C.scene.rotation.y=Math.PI/2;
-    model32C.scene.position.set(0,0,20);
-    scene.add(model32C.scene);
+//     model32C.scene.rotation.y=Math.PI/2;
+//     model32C.scene.position.set(0,0,20);
+//     scene.add(model32C.scene);
     
-});
+// });
 
 let objload = new THREE.GLTFLoader();
 objload.load('asset/1-VER3.gltf', function(model1s){
     scene.add(model1s.scene);
-    model1s.scene.position.set(80,-200,500);
+    model1s.scene.position.set(135,-225,520);
     // console.log(model1s.scene.position);
     // console.log("load");
 });
@@ -98,7 +102,7 @@ function init(){
     light1= new THREE.DirectionalLight(0xffffff,1);
     light1.position.set(-10,6,8);
     //ball position
-    mesh.position.set(-10,6,8);
+    mesh.position.set(0,1,0);
     light2= new THREE.DirectionalLight(0xffffff,0.7);
     light2.position.set(0,6,1);
     //adding the light
@@ -119,7 +123,7 @@ function init(){
     wall[2].position.z=-100;
     
     
-    scene.add(floor);
+    // scene.add(floor);
 
 
     //then render
