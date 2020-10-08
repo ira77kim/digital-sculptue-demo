@@ -8,7 +8,7 @@ let ball = new THREE.SphereGeometry(1,16,16);
 let ballm= new THREE.MeshPhongMaterial({
     color:0x000000,
     transparent:true,
-    opacity:1
+    opacity:0
 });
 let mesh = new THREE.Mesh(ball,ballm);
 
@@ -22,14 +22,16 @@ let loader = new THREE.GLTFLoader();
 //     scene.add(model32C.scene);
     
 // });
-
+let group = new THREE.Group();
 let objload = new THREE.GLTFLoader();
 objload.load('asset/1-VER3.gltf', function(model1s){
     scene.add(model1s.scene);
     model1s.scene.position.set(135,-225,520);
+    group.add(model1s.scene);
     // console.log(model1s.scene.position);
     // console.log("load");
 });
+
 
 
 // }, 
@@ -102,7 +104,7 @@ function init(){
     light1= new THREE.DirectionalLight(0xffffff,1);
     light1.position.set(-10,6,8);
     //ball position
-    mesh.position.set(0,1,0);
+    mesh.position.set(0,-.30,0);
     light2= new THREE.DirectionalLight(0xffffff,0.7);
     light2.position.set(0,6,1);
     //adding the light
@@ -124,7 +126,7 @@ function init(){
     
     
     // scene.add(floor);
-
+scene.add(group);
 
     //then render
     renderer=new THREE.WebGLRenderer();
@@ -150,6 +152,7 @@ function init(){
 function update(){
     renderer.render(scene, camera);
     requestAnimationFrame(update);
+    group.rotation.y+=0.003;
     
 }
 
