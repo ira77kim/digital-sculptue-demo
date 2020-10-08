@@ -8,24 +8,26 @@ let ball = new THREE.SphereGeometry(1,16,16);
 let ballm= new THREE.MeshPhongMaterial({
     color:0x000000,
     transparent:true,
-    opacity:0
+    opacity:0,
+    depthwrite:true
 });
 let mesh = new THREE.Mesh(ball,ballm);
 
 //loader
+let group2 = new THREE.Group();
 let loader = new THREE.GLTFLoader();
+loader.load('asset/32C.gltf', function(model32C){
+    model32C.scene.rotation.y=Math.PI/2;
+    model32C.scene.position.set(0,-15,20);
+    group2.add(model32C.scene);
+    group2.position.set(60,0,0);
+});
 
-// loader.load('asset/32C.gltf', function(model32C){
-    
-//     model32C.scene.rotation.y=Math.PI/2;
-//     model32C.scene.position.set(0,0,20);
-//     scene.add(model32C.scene);
-    
-// });
+
 let group = new THREE.Group();
 let objload = new THREE.GLTFLoader();
 objload.load('asset/1-VER3.gltf', function(model1s){
-    scene.add(model1s.scene);
+    // scene.add(model1s.scene);
     model1s.scene.position.set(135,-225,520);
     group.add(model1s.scene);
     // console.log(model1s.scene.position);
@@ -64,12 +66,9 @@ loader1.load("sound/0.wav", function(buffer){
     document.addEventListener("click",function(){
         sound1.play();
     });
-    // if(camera.position.z<60){
-    //     sound1.play();
-    // }
-    // sound1.loop = true;
 });
 mesh.add(sound1);
+
 
 let sound={};
 let Audioloader={};
@@ -126,7 +125,7 @@ function init(){
     
     
     // scene.add(floor);
-scene.add(group);
+scene.add(group,group2);
 
     //then render
     renderer=new THREE.WebGLRenderer();
@@ -135,9 +134,9 @@ scene.add(group);
 
     //orbit control library must be imported separately
     controls= new THREE.OrbitControls(camera,renderer.domElement);
-    camera.position.set(0,90,90);
+    camera.position.set(15,90,90);
     
-    controls.target.set(0,10,0);
+    controls.target.set(15,10,0);
     controls.update();
     
     //add audio listener to camera
@@ -153,7 +152,7 @@ function update(){
     renderer.render(scene, camera);
     requestAnimationFrame(update);
     group.rotation.y+=0.003;
-    
+    group2.rotation.y-=0.001;
 }
 
 function resize(){
