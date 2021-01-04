@@ -16,9 +16,10 @@ let mesh = new THREE.Mesh(ball,ballm);
 //loader
 let group2 = new THREE.Group();
 let loader = new THREE.GLTFLoader();
-loader.load('asset/32C.gltf', function(model32C){
+loader.load('asset/REALLLYREALLL.gltf', function(model32C){
+// loader.load('asset/36.gltf', function(model32C){
     model32C.scene.rotation.y=Math.PI/2;
-    model32C.scene.position.set(0,-15,20);
+    // model32C.scene.position.set(0,-15,20);
     group2.add(model32C.scene);
     group2.position.set(60,0,0);
 });
@@ -33,6 +34,30 @@ objload.load('asset/1-VER3.gltf', function(model1s){
     // console.log(model1s.scene.position);
     // console.log("load");
 });
+
+let group3 = new THREE.Group();
+let test={};
+let m={};
+// m[0]='asset/10FORGLTF-orange.gltf';
+m[0]='asset/10FORGLTF-orange.gltf';
+m[1]='asset/10FORGLTF-yellow.gltf';
+m[2]='asset/10FORGLTF-yelloworange.gltf';
+
+test[0]= new THREE.GLTFLoader();
+test[0].load( 'asset/10FORGLTF-orange.gltf', function(testobjects1){
+    // test.position.set()
+    group3.add(testobjects1.scene);
+});
+test[1]= new THREE.GLTFLoader();
+test[1].load( 'asset/10FORGLTF-yellow.gltf', function(testobjects2){
+    testobjects2.scene.position.set(100,-200,-1010);
+    group3.add(testobjects2.scene);
+});
+test[2]= new THREE.GLTFLoader();
+test[2].load( 'asset/10FORGLTF-yelloworange.gltf', function(testobjects3){
+    group3.add(testobjects3.scene);
+});
+
 
 
 
@@ -97,17 +122,19 @@ let stringed={};
 function init(){
     scene= new THREE.Scene();
     scene.background=new THREE.Color(0xf1f1f1);
+    // scene.background=new THREE.Color(0x000000);
     
     camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
     
-    light1= new THREE.DirectionalLight(0xffffff,1);
+    light1= new THREE.AmbientLight(0xffffff,1);
     light1.position.set(-10,6,8);
     //ball position
     mesh.position.set(0,-.30,0);
-    light2= new THREE.DirectionalLight(0xffffff,0.7);
+    // light2= new THREE.DirectionalLight(0xffffff,0.4);
+    light2= new THREE.DirectionalLight(0xffffff,0.3);
     light2.position.set(0,6,1);
     //adding the light
-    scene.add(light1, mesh, light2);
+    scene.add( mesh, light1, light2);
 
     //floor
     let floorgeo = new THREE.BoxGeometry(100,100,5);
@@ -125,7 +152,7 @@ function init(){
     
     
     // scene.add(floor);
-scene.add(group,group2);
+scene.add(group,group2, group3);
 
     //then render
     renderer=new THREE.WebGLRenderer();
@@ -136,7 +163,8 @@ scene.add(group,group2);
     controls= new THREE.OrbitControls(camera,renderer.domElement);
     camera.position.set(15,90,90);
     
-    controls.target.set(15,10,0);
+    // controls.target.set(15,10,0);
+    controls.target.set(0,0,0);
     controls.update();
     
     //add audio listener to camera
@@ -154,6 +182,7 @@ function update(){
     group.rotation.y+=0.003;
     group2.rotation.y-=0.001;
 }
+
 
 function resize(){
     camera.aspect = window.innerWidth / window.innerHeight;
